@@ -62,12 +62,12 @@ public class MyLinkedList<E>
     /**
      * Pointer to first node.
      */
-    transient java.util.LinkedList.Node<E> first;
+    transient MyLinkedList.Node<E> first;
 
     /**
      * Pointer to last node.
      */
-    transient java.util.LinkedList.Node<E> last;
+    transient MyLinkedList.Node<E> last;
 
     /*
     void dataStructureInvariants() {
@@ -100,8 +100,8 @@ public class MyLinkedList<E>
      * Links e as first element.
      */
     private void linkFirst(E e) {
-        final java.util.LinkedList.Node<E> f = first;
-        final java.util.LinkedList.Node<E> newNode = new java.util.LinkedList.Node<>(null, e, f);
+        final MyLinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> newNode = new MyLinkedList.Node<>(null, e, f);
         first = newNode;
         if (f == null)
             last = newNode;
@@ -115,8 +115,8 @@ public class MyLinkedList<E>
      * Links e as last element.
      */
     void linkLast(E e) {
-        final java.util.LinkedList.Node<E> l = last;
-        final java.util.LinkedList.Node<E> newNode = new java.util.LinkedList.Node<>(l, e, null);
+        final MyLinkedList.Node<E> l = last;
+        final MyLinkedList.Node<E> newNode = new MyLinkedList.Node<>(l, e, null);
         last = newNode;
         if (l == null)
             first = newNode;
@@ -129,10 +129,10 @@ public class MyLinkedList<E>
     /**
      * Inserts element e before non-null Node succ.
      */
-    void linkBefore(E e, java.util.LinkedList.Node<E> succ) {
+    void linkBefore(E e, MyLinkedList.Node<E> succ) {
         // assert succ != null;
-        final java.util.LinkedList.Node<E> pred = succ.prev;
-        final java.util.LinkedList.Node<E> newNode = new java.util.LinkedList.Node<>(pred, e, succ);
+        final MyLinkedList.Node<E> pred = succ.prev;
+        final MyLinkedList.Node<E> newNode = new MyLinkedList.Node<>(pred, e, succ);
         succ.prev = newNode;
         if (pred == null)
             first = newNode;
@@ -145,10 +145,10 @@ public class MyLinkedList<E>
     /**
      * Unlinks non-null first node f.
      */
-    private E unlinkFirst(java.util.LinkedList.Node<E> f) {
+    private E unlinkFirst(MyLinkedList.Node<E> f) {
         // assert f == first && f != null;
         final E element = f.item;
-        final java.util.LinkedList.Node<E> next = f.next;
+        final MyLinkedList.Node<E> next = f.next;
         f.item = null;
         f.next = null; // help GC
         first = next;
@@ -164,10 +164,10 @@ public class MyLinkedList<E>
     /**
      * Unlinks non-null last node l.
      */
-    private E unlinkLast(java.util.LinkedList.Node<E> l) {
+    private E unlinkLast(MyLinkedList.Node<E> l) {
         // assert l == last && l != null;
         final E element = l.item;
-        final java.util.LinkedList.Node<E> prev = l.prev;
+        final MyLinkedList.Node<E> prev = l.prev;
         l.item = null;
         l.prev = null; // help GC
         last = prev;
@@ -183,11 +183,11 @@ public class MyLinkedList<E>
     /**
      * Unlinks non-null node x.
      */
-    E unlink(java.util.LinkedList.Node<E> x) {
+    E unlink(MyLinkedList.Node<E> x) {
         // assert x != null;
         final E element = x.item;
-        final java.util.LinkedList.Node<E> next = x.next;
-        final java.util.LinkedList.Node<E> prev = x.prev;
+        final MyLinkedList.Node<E> next = x.next;
+        final MyLinkedList.Node<E> prev = x.prev;
 
         if (prev == null) {
             first = next;
@@ -216,7 +216,7 @@ public class MyLinkedList<E>
      * @throws NoSuchElementException if this list is empty
      */
     public E getFirst() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
         return f.item;
@@ -229,7 +229,7 @@ public class MyLinkedList<E>
      * @throws NoSuchElementException if this list is empty
      */
     public E getLast() {
-        final java.util.LinkedList.Node<E> l = last;
+        final MyLinkedList.Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
         return l.item;
@@ -242,7 +242,7 @@ public class MyLinkedList<E>
      * @throws NoSuchElementException if this list is empty
      */
     public E removeFirst() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
         return unlinkFirst(f);
@@ -255,7 +255,7 @@ public class MyLinkedList<E>
      * @throws NoSuchElementException if this list is empty
      */
     public E removeLast() {
-        final java.util.LinkedList.Node<E> l = last;
+        final MyLinkedList.Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
         return unlinkLast(l);
@@ -331,14 +331,14 @@ public class MyLinkedList<E>
      */
     public boolean remove(Object o) {
         if (o == null) {
-            for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next) {
+            for (MyLinkedList.Node<E> x = first; x != null; x = x.next) {
                 if (x.item == null) {
                     unlink(x);
                     return true;
                 }
             }
         } else {
-            for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next) {
+            for (MyLinkedList.Node<E> x = first; x != null; x = x.next) {
                 if (o.equals(x.item)) {
                     unlink(x);
                     return true;
@@ -387,7 +387,7 @@ public class MyLinkedList<E>
         if (numNew == 0)
             return false;
 
-        java.util.LinkedList.Node<E> pred, succ;
+        MyLinkedList.Node<E> pred, succ;
         if (index == size) {
             succ = null;
             pred = last;
@@ -398,7 +398,7 @@ public class MyLinkedList<E>
 
         for (Object o : a) {
             @SuppressWarnings("unchecked") E e = (E) o;
-            java.util.LinkedList.Node<E> newNode = new java.util.LinkedList.Node<>(pred, e, null);
+            MyLinkedList.Node<E> newNode = new MyLinkedList.Node<>(pred, e, null);
             if (pred == null)
                 first = newNode;
             else
@@ -427,8 +427,8 @@ public class MyLinkedList<E>
         // - helps a generational GC if the discarded nodes inhabit
         //   more than one generation
         // - is sure to free memory even if there is a reachable Iterator
-        for (java.util.LinkedList.Node<E> x = first; x != null; ) {
-            java.util.LinkedList.Node<E> next = x.next;
+        for (MyLinkedList.Node<E> x = first; x != null; ) {
+            MyLinkedList.Node<E> next = x.next;
             x.item = null;
             x.next = null;
             x.prev = null;
@@ -465,7 +465,7 @@ public class MyLinkedList<E>
      */
     public E set(int index, E element) {
         checkElementIndex(index);
-        java.util.LinkedList.Node<E> x = node(index);
+        MyLinkedList.Node<E> x = node(index);
         E oldVal = x.item;
         x.item = element;
         return oldVal;
@@ -540,16 +540,16 @@ public class MyLinkedList<E>
     /**
      * Returns the (non-null) Node at the specified element index.
      */
-    java.util.LinkedList.Node<E> node(int index) {
+    MyLinkedList.Node<E> node(int index) {
         // assert isElementIndex(index);
 
         if (index < (size >> 1)) {
-            java.util.LinkedList.Node<E> x = first;
+            MyLinkedList.Node<E> x = first;
             for (int i = 0; i < index; i++)
                 x = x.next;
             return x;
         } else {
-            java.util.LinkedList.Node<E> x = last;
+            MyLinkedList.Node<E> x = last;
             for (int i = size - 1; i > index; i--)
                 x = x.prev;
             return x;
@@ -572,13 +572,13 @@ public class MyLinkedList<E>
     public int indexOf(Object o) {
         int index = 0;
         if (o == null) {
-            for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next) {
+            for (MyLinkedList.Node<E> x = first; x != null; x = x.next) {
                 if (x.item == null)
                     return index;
                 index++;
             }
         } else {
-            for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next) {
+            for (MyLinkedList.Node<E> x = first; x != null; x = x.next) {
                 if (o.equals(x.item))
                     return index;
                 index++;
@@ -601,13 +601,13 @@ public class MyLinkedList<E>
     public int lastIndexOf(Object o) {
         int index = size;
         if (o == null) {
-            for (java.util.LinkedList.Node<E> x = last; x != null; x = x.prev) {
+            for (MyLinkedList.Node<E> x = last; x != null; x = x.prev) {
                 index--;
                 if (x.item == null)
                     return index;
             }
         } else {
-            for (java.util.LinkedList.Node<E> x = last; x != null; x = x.prev) {
+            for (MyLinkedList.Node<E> x = last; x != null; x = x.prev) {
                 index--;
                 if (o.equals(x.item))
                     return index;
@@ -625,7 +625,7 @@ public class MyLinkedList<E>
      * @since 1.5
      */
     public E peek() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         return (f == null) ? null : f.item;
     }
 
@@ -647,7 +647,7 @@ public class MyLinkedList<E>
      * @since 1.5
      */
     public E poll() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
 
@@ -708,7 +708,7 @@ public class MyLinkedList<E>
      * @since 1.6
      */
     public E peekFirst() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         return (f == null) ? null : f.item;
     }
 
@@ -721,7 +721,7 @@ public class MyLinkedList<E>
      * @since 1.6
      */
     public E peekLast() {
-        final java.util.LinkedList.Node<E> l = last;
+        final MyLinkedList.Node<E> l = last;
         return (l == null) ? null : l.item;
     }
 
@@ -734,7 +734,7 @@ public class MyLinkedList<E>
      * @since 1.6
      */
     public E pollFirst() {
-        final java.util.LinkedList.Node<E> f = first;
+        final MyLinkedList.Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
 
@@ -747,7 +747,7 @@ public class MyLinkedList<E>
      * @since 1.6
      */
     public E pollLast() {
-        final java.util.LinkedList.Node<E> l = last;
+        final MyLinkedList.Node<E> l = last;
         return (l == null) ? null : unlinkLast(l);
     }
 
@@ -803,14 +803,14 @@ public class MyLinkedList<E>
      */
     public boolean removeLastOccurrence(Object o) {
         if (o == null) {
-            for (java.util.LinkedList.Node<E> x = last; x != null; x = x.prev) {
+            for (MyLinkedList.Node<E> x = last; x != null; x = x.prev) {
                 if (x.item == null) {
                     unlink(x);
                     return true;
                 }
             }
         } else {
-            for (java.util.LinkedList.Node<E> x = last; x != null; x = x.prev) {
+            for (MyLinkedList.Node<E> x = last; x != null; x = x.prev) {
                 if (o.equals(x.item)) {
                     unlink(x);
                     return true;
@@ -843,12 +843,12 @@ public class MyLinkedList<E>
      */
     public ListIterator<E> listIterator(int index) {
         checkPositionIndex(index);
-        return new java.util.LinkedList.ListItr(index);
+        return new MyLinkedList.ListItr(index);
     }
 
     private class ListItr implements ListIterator<E> {
-        private java.util.LinkedList.Node<E> lastReturned;
-        private java.util.LinkedList.Node<E> next;
+        private MyLinkedList.Node<E> lastReturned;
+        private MyLinkedList.Node<E> next;
         private int nextIndex;
         private int expectedModCount = modCount;
 
@@ -900,7 +900,7 @@ public class MyLinkedList<E>
             if (lastReturned == null)
                 throw new IllegalStateException();
 
-            java.util.LinkedList.Node<E> lastNext = lastReturned.next;
+            MyLinkedList.Node<E> lastNext = lastReturned.next;
             unlink(lastReturned);
             if (next == lastReturned)
                 next = lastNext;
@@ -947,10 +947,10 @@ public class MyLinkedList<E>
 
     private static class Node<E> {
         E item;
-        java.util.LinkedList.Node<E> next;
-        java.util.LinkedList.Node<E> prev;
+        MyLinkedList.Node<E> next;
+        MyLinkedList.Node<E> prev;
 
-        Node(java.util.LinkedList.Node<E> prev, E element, java.util.LinkedList.Node<E> next) {
+        Node(MyLinkedList.Node<E> prev, E element, MyLinkedList.Node<E> next) {
             this.item = element;
             this.next = next;
             this.prev = prev;
@@ -961,21 +961,21 @@ public class MyLinkedList<E>
      * @since 1.6
      */
     public Iterator<E> descendingIterator() {
-        return new java.util.LinkedList.DescendingIterator();
+        return new MyLinkedList.DescendingIterator();
     }
 
     /**
      * Adapter to provide descending iterators via ListItr.previous
      */
     private class DescendingIterator implements Iterator<E> {
-        private final java.util.LinkedList.ListItr itr = new java.util.LinkedList.ListItr(size());
+        private final MyLinkedList.ListItr itr = new MyLinkedList.ListItr(size());
 
         public boolean hasNext() {
             return itr.hasPrevious();
         }
 
         public E next() {
-            return itr.previous();
+            return (E) itr.previous();
         }
 
         public void remove() {
@@ -984,9 +984,9 @@ public class MyLinkedList<E>
     }
 
     @SuppressWarnings("unchecked")
-    private java.util.LinkedList<E> superClone() {
+    private MyLinkedList<E> superClone() {
         try {
-            return (java.util.LinkedList<E>) super.clone();
+            return (MyLinkedList<E>) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new InternalError(e);
         }
@@ -999,7 +999,7 @@ public class MyLinkedList<E>
      * @return a shallow copy of this {@code LinkedList} instance
      */
     public Object clone() {
-        java.util.LinkedList<E> clone = superClone();
+        MyLinkedList<E> clone = superClone();
 
         // Put clone into "virgin" state
         clone.first = clone.last = null;
@@ -1007,7 +1007,7 @@ public class MyLinkedList<E>
         clone.modCount = 0;
 
         // Initialize clone with our elements
-        for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next)
+        for (MyLinkedList.Node<E> x = first; x != null; x = x.next)
             clone.add(x.item);
 
         return clone;
@@ -1030,7 +1030,7 @@ public class MyLinkedList<E>
     public Object[] toArray() {
         Object[] result = new Object[size];
         int i = 0;
-        for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next)
+        for (MyLinkedList.Node<E> x = first; x != null; x = x.next)
             result[i++] = x.item;
         return result;
     }
@@ -1080,7 +1080,7 @@ public class MyLinkedList<E>
                     a.getClass().getComponentType(), size);
         int i = 0;
         Object[] result = a;
-        for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next)
+        for (MyLinkedList.Node<E> x = first; x != null; x = x.next)
             result[i++] = x.item;
 
         if (a.length > size)
@@ -1110,7 +1110,7 @@ public class MyLinkedList<E>
         s.writeInt(size);
 
         // Write out all elements in the proper order.
-        for (java.util.LinkedList.Node<E> x = first; x != null; x = x.next)
+        for (MyLinkedList.Node<E> x = first; x != null; x = x.next)
             s.writeObject(x.item);
     }
 
@@ -1149,7 +1149,7 @@ public class MyLinkedList<E>
      */
     @Override
     public Spliterator<E> spliterator() {
-        return new java.util.LinkedList.LLSpliterator<>(this, -1, 0);
+        return new MyLinkedList.LLSpliterator<>(this, -1, 0);
     }
 
     /**
@@ -1158,13 +1158,13 @@ public class MyLinkedList<E>
     static final class LLSpliterator<E> implements Spliterator<E> {
         static final int BATCH_UNIT = 1 << 10;  // batch array size increment
         static final int MAX_BATCH = 1 << 25;  // max batch array size;
-        final java.util.LinkedList<E> list; // null OK unless traversed
-        java.util.LinkedList.Node<E> current;      // current node; null until initialized
+        final MyLinkedList<E> list; // null OK unless traversed
+        MyLinkedList.Node<E> current;      // current node; null until initialized
         int est;              // size estimate; -1 until first needed
         int expectedModCount; // initialized when est set
         int batch;            // batch size for splits
 
-        LLSpliterator(java.util.LinkedList<E> list, int est, int expectedModCount) {
+        LLSpliterator(MyLinkedList<E> list, int est, int expectedModCount) {
             this.list = list;
             this.est = est;
             this.expectedModCount = expectedModCount;
@@ -1172,7 +1172,7 @@ public class MyLinkedList<E>
 
         final int getEst() {
             int s; // force initialization
-            final java.util.LinkedList<E> lst;
+            final MyLinkedList<E> lst;
             if ((s = est) < 0) {
                 if ((lst = list) == null)
                     s = est = 0;
@@ -1190,7 +1190,7 @@ public class MyLinkedList<E>
         }
 
         public Spliterator<E> trySplit() {
-            java.util.LinkedList.Node<E> p;
+            MyLinkedList.Node<E> p;
             int s = getEst();
             if (s > 1 && (p = current) != null) {
                 int n = batch + BATCH_UNIT;
@@ -1212,7 +1212,7 @@ public class MyLinkedList<E>
         }
 
         public void forEachRemaining(Consumer<? super E> action) {
-            java.util.LinkedList.Node<E> p;
+            MyLinkedList.Node<E> p;
             int n;
             if (action == null) throw new NullPointerException();
             if ((n = getEst()) > 0 && (p = current) != null) {
@@ -1229,7 +1229,7 @@ public class MyLinkedList<E>
         }
 
         public boolean tryAdvance(Consumer<? super E> action) {
-            java.util.LinkedList.Node<E> p;
+            MyLinkedList.Node<E> p;
             if (action == null) throw new NullPointerException();
             if (getEst() > 0 && (p = current) != null) {
                 --est;

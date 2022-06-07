@@ -975,7 +975,7 @@ public class MyLinkedList<E>
         }
 
         public E next() {
-            return itr.previous();
+            return (E) itr.previous();
         }
 
         public void remove() {

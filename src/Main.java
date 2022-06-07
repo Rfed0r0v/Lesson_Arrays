@@ -61,6 +61,14 @@ public class Main {
 
 
         System.out.println("Task 3 - MyLinkedList");
+        MyLinkedList<String> myLinkList;
+        myLinkList = new MyLinkedList<>();
+        myLinkList.add("myLinkedListString 0");
+        myLinkList.add("myLinkedListString 1");
+        myLinkList.add("myLinkedListString 2");
+        myLinkList.add("myLinkedListString 3");
+        myLinkList.add(2, "inserted in pos. 2");
+        arrayPrintOut(myLinkList);
 
 
     }
